@@ -1,5 +1,5 @@
 """
-   train the RamanNet model
+train the RamanNet model
 """
 
 from data_processing import segment_spectrum_batch
