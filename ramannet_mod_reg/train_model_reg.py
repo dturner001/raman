@@ -9,6 +9,8 @@ import matplotlib.pyplot as plt
 import tensorflow as tf
 from keras.callbacks import ModelCheckpoint, ReduceLROnPlateau, EarlyStopping
 from sklearn.preprocessing import StandardScaler
+import keras
+import joblib
 
 
 def train_regression_model(X_train, y_train, X_val, y_val, w_len, dw, epochs, model_path, plot=True):
@@ -37,8 +39,8 @@ def train_regression_model(X_train, y_train, X_val, y_val, w_len, dw, epochs, mo
     y_val_scaled = temp_scaler.transform(y_val.reshape(-1, 1)).flatten()
     
     # Save scaler for later use
-    np.save(model_path.replace('.h5', '_scaler.npy'), temp_scaler.scale_)
-    np.save(model_path.replace('.h5', '_mean.npy'), temp_scaler.mean_)
+    scaler_path = model_path.replace('.h5', '_scaler.joblib').replace('.keras', '_scaler.joblib')
+    joblib.dump(temp_scaler, scaler_path)
     
     # 2. Segment spectra into windows
     print("Segmenting spectra...")
@@ -50,12 +52,9 @@ def train_regression_model(X_train, y_train, X_val, y_val, w_len, dw, epochs, mo
     mdl = RamanNetRegression(w_len=X_train_segmented[0].shape[1], 
                             n_windows=len(X_train_segmented))
     
+    
     # 4. Define custom metrics for regression
-    def r_squared(y_true, y_pred):
-        """R² metric"""
-        SS_res = tf.reduce_sum(tf.square(y_true - y_pred))
-        SS_tot = tf.reduce_sum(tf.square(y_true - tf.reduce_mean(y_true)))
-        return 1 - SS_res/(SS_tot + tf.keras.backend.epsilon())
+
     
     def mean_absolute_percentage_error(y_true, y_pred):
         """MAPE metric"""
@@ -63,25 +62,25 @@ def train_regression_model(X_train, y_train, X_val, y_val, w_len, dw, epochs, mo
     
     # 5. Compile model with regression-appropriate settings
     # Option A: MSE loss (standard)
-    mdl.compile(
-        optimizer=tf.keras.optimizers.Adam(learning_rate=0.0001),  # Lower LR for regression
-        loss='mse',
-        metrics=['mae', 'mse', r_squared]
-    )
+    # mdl.compile(
+    #     optimizer=tf.keras.optimizers.Adam(learning_rate=0.0001),  # Lower LR for regression
+    #     loss='mse',
+    #     metrics=['mae', keras.metrics.R2Score()]
+    # )
     
     # Option B: Huber loss (more robust to outliers)
-    # def huber_loss(y_true, y_pred, delta=1.0):
-    #     error = y_true - y_pred
-    #     is_small_error = tf.abs(error) <= delta
-    #     squared_loss = 0.5 * tf.square(error)
-    #     linear_loss = delta * (tf.abs(error) - 0.5 * delta)
-    #     return tf.where(is_small_error, squared_loss, linear_loss)
-    # 
-    # mdl.compile(
-    #     optimizer=tf.keras.optimizers.Adam(learning_rate=0.0001),
-    #     loss=lambda y_true, y_pred: huber_loss(y_true, y_pred, delta=1.0),
-    #     metrics=['mae', 'mse', r_squared]
-    # )
+    def huber_loss(y_true, y_pred, delta=1.0):
+        error = y_true - y_pred
+        is_small_error = tf.abs(error) <= delta
+        squared_loss = 0.5 * tf.square(error)
+        linear_loss = delta * (tf.abs(error) - 0.5 * delta)
+        return tf.where(is_small_error, squared_loss, linear_loss)
+    
+    mdl.compile(
+        optimizer=tf.keras.optimizers.Adam(learning_rate=0.0001),
+        loss=lambda y_true, y_pred: huber_loss(y_true, y_pred, delta=1.0),
+        metrics=['mae', 'mse', keras.metrics.R2Score()]
+    )
     
     # 6. Set up callbacks
     checkpoint = ModelCheckpoint(
@@ -89,8 +88,8 @@ def train_regression_model(X_train, y_train, X_val, y_val, w_len, dw, epochs, mo
         verbose=1, 
         monitor='val_loss',
         save_best_only=True, 
-        mode='min',
-        save_format='h5'
+        mode='min'
+        
     )  
     
     reduce_lr = ReduceLROnPlateau(
@@ -236,7 +235,7 @@ def evaluate_regression_model(model, X_test, y_test, temp_scaler, w_len, dw):
     """
     # Make predictions
     y_pred = predict_temperature(model, X_test, temp_scaler, w_len, dw)
-    
+    print(y_pred)
     # Calculate metrics
     from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
     

@@ -38,6 +38,8 @@ def RamanNetRegression(w_len, n_windows):
 
     top = Dense(512)(comb)
     top = BatchNormalization()(top)
+    # top = Dense(512)(top)
+    # top = BatchNormalization()(top)
     top = LeakyReLU()(top)
     top = Dropout(0.40)(top)
 
