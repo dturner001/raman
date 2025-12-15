@@ -7,12 +7,15 @@ from sklearn.preprocessing import StandardScaler
 import keras 
 import joblib
 from keras.models import load_model
+from data_processing_reg import filter_spectra
 
 model_path = r"regression model\saved_modelreg.keras"
 
-mdl = load_model(model_path)
+mdl = load_model(model_path, safe_mode = False)
 
 test_in = pd.read_csv("Testing_inputs.csv")
+# test_in = test_in[(test_in["Wave Number"]>500) & (test_in["Wave Number"]<2000)]
+#test_in = test_in.apply(filter_spectra)
 test_out = pd.read_csv("Testing_outputs.csv")
 test_in = test_in.drop(test_in.columns[0], axis=1)
 X = test_in.T.values
@@ -24,3 +27,5 @@ temp_scaler = joblib.load(model_path.replace('.keras', '_scaler.joblib'))
 
 metrics = evaluate_regression_model(mdl, X, temps, temp_scaler, 50, 25)
 print(metrics)
+
+

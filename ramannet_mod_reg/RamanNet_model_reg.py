@@ -4,7 +4,7 @@
 
 import tensorflow as tf
 from keras.models import Model
-from keras.layers import Input, Dropout, Dense, BatchNormalization, concatenate, Lambda, LeakyReLU
+from keras.layers import Input, Dropout, Dense, BatchNormalization, concatenate, Lambda, LeakyReLU, Attention
 import numpy as np
 
 def RamanNetRegression(w_len, n_windows):
@@ -38,8 +38,6 @@ def RamanNetRegression(w_len, n_windows):
 
     top = Dense(512)(comb)
     top = BatchNormalization()(top)
-    # top = Dense(512)(top)
-    # top = BatchNormalization()(top)
     top = LeakyReLU()(top)
     top = Dropout(0.40)(top)
 

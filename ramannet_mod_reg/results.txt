@@ -1,0 +1,57 @@
+DOE on modified ramanNet network
+
+100 epoch training:
+
+Huber loss:
+
+{'MAE': 15.984034695312502, 'MSE': 261.21878664867467, 'RMSE': np.float64(16.162264279755934), 'R2': -135.80165668385118, 'MAPE': np.float64(16.702898637874707), 'Std_Residual': np.float64(2.3936210033588887), 'Prediction_Interval_95': np.float64(4.691497166583422), 'Predictions': array([82.56087 , 82.20583 , 79.992195, 72.70476 , 82.19003 ],
+      dtype=float32), 'Residuals': array([14.02206269, 14.90983656, 15.55486487, 20.67097231, 14.76243704])}
+
+MSE Loss:
+{'MAE': 15.984034695312502, 'MSE': 261.21878664867467, 'RMSE': np.float64(16.162264279755934), 'R2': -135.80165668385118, 'MAPE': np.float64(16.702898637874707), 'Std_Residual': np.float64(2.3936210033588887), 'Prediction_Interval_95': np.float64(4.691497166583422), 'Predictions': array([82.56087 , 82.20583 , 79.992195, 72.70476 , 82.19003 ],
+      dtype=float32), 'Residuals': array([14.02206269, 14.90983656, 15.55486487, 20.67097231, 14.76243704])}
+
+
+Extra Dense Layer(512):
+{'MAE': 13.780557217285159, 'MSE': 194.95607183529216, 'RMSE': np.float64(13.962667074570394), 'R2': -101.0995233528667, 'MAPE': np.float64(14.394404041125592), 'Std_Residual': np.float64(2.247735441821856), 'Prediction_Interval_95': np.float64(4.4055614659708375), 'Predictions': array([86.50999, 84.46304, 80.20491, 76.85253, 82.6406 ], dtype=float32), 'Residuals': array([10.07294312, 12.65262679, 15.34214972, 16.52319857, 14.31186789])}
+
+#marginal improvement from default
+
+
+
+removed extra layer, reduced w and dw to 25 and 10 respectively
+
+{'MAE': 29.99644619433594, 'MSE': 1091.353524809694, 'RMSE': np.float64(33.03564022097489), 'R2': -570.5475986132872, 'MAPE': np.float64(31.270784683657553), 'Std_Residual': np.float64(13.840763726037771), 'Prediction_Interval_95': np.float64(27.12789690303403), 'Predictions': array([80.631035, 80.220184, 51.491455, 69.19861 , 48.050346],
+      dtype=float32), 'Residuals': array([15.95189515, 16.89548567, 44.05560492, 24.1771216 , 48.90212363])}
+
+
+
+didnt save the data, but results were significantly worse after using a Savitzky-Golay filter, more research needed
+
+w = 50, dw = 50, normal settings???
+
+{'MAE': 3.5166739140625025, 'MSE': 15.088703970636596, 'RMSE': np.float64(3.884418099360134), 'R2': -6.902033873128253, 'MAPE': np.float64(3.673088166468946), 'Std_Residual': np.float64(3.7887446319326124), 'Prediction_Interval_95': np.float64(7.42593947858792), 'Predictions': array([95.486755, 99.48014 , 91.60293 , 97.66093 , 91.059074],
+      dtype=float32), 'Residuals': array([ 1.09617463, -2.36447069,  3.94413184, -4.28519682,  5.8933956 ])}
+should have saved the model lmao
+
+
+
+with wavenumber trimmed 500 - 2000
+
+{'MAE': 7.100567036132813, 'MSE': 97.76051751149392, 'RMSE': np.float64(9.887391845754568), 'R2': -50.197698777423916, 'MAPE': np.float64(7.36610476063852), 'Std_Residual': np.float64(7.090313813163976), 'Prediction_Interval_95': np.float64(13.897015073801393), 'Predictions': array([95.01845 , 94.121704, 83.0202  , 93.89927 , 79.05848 ],
+      dtype=float32), 'Residuals': array([ 1.56448212,  2.9939659 , 12.52685736, -0.5235391 , 17.89399069])}
+
+goign to repeat with original settings from one above to see if i can recreate the good results
+
+best i could get:
+
+{'MAE': 7.312305930175782, 'MSE': 67.92370383613061, 'RMSE': np.float64(8.241583818425353), 'R2': -34.572002045102785, 'MAPE': np.float64(7.648463871948769), 'Std_Residual': np.float64(8.178447800331016), 'Prediction_Interval_95': np.float64(16.02975768864879), 'Predictions': array([101.36079 , 101.38994 ,  91.92746 , 105.149826,  84.83676 ],
+      dtype=float32), 'Residuals': array([ -4.77785644,  -4.27426835,   3.61960028, -11.77409605,
+        12.11570853])}
+
+
+early stopping kicks in around epoch 20
+
+
+
+going to try with a GAN

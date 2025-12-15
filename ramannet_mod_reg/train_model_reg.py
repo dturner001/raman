@@ -69,7 +69,7 @@ def train_regression_model(X_train, y_train, X_val, y_val, w_len, dw, epochs, mo
     # )
     
     # Option B: Huber loss (more robust to outliers)
-    def huber_loss(y_true, y_pred, delta=1.0):
+    def huber_loss(y_true, y_pred, delta=4.0):
         error = y_true - y_pred
         is_small_error = tf.abs(error) <= delta
         squared_loss = 0.5 * tf.square(error)
@@ -126,7 +126,7 @@ def train_regression_model(X_train, y_train, X_val, y_val, w_len, dw, epochs, mo
     if plot:
         plot_training_history(training_history, temp_scaler)
     
-    return mdl, training_history, temp_scaler
+    return mdl, training_history
 
 
 def plot_training_history(history, temp_scaler):
