@@ -1,0 +1,58 @@
+Test 1219 with rpet loss weight: 0.30000000000000004, PCA loss weight: 0.0, PCA range: 4, data range: 1100.0 to 800.0 failed due to error: Found array with 0 feature(s) (shape=(38, 0)) while a minimum of 1 is required by StandardScaler.
+Test 1167 with rpet loss weight: 0.7000000000000001, PCA loss weight: 0.1, PCA range: 3, data range: 1100.0 to 800.0 failed due to error: Found array with 0 feature(s) (shape=(38, 0)) while a minimum of 1 is required by StandardScaler.
+Test 83 with rpet loss weight: 0.30000000000000004, PCA loss weight: 0.2, PCA range: 4, data range: 1100.0 to 1300.0 failed due to error: 'NoneType' object is not subscriptable
+Test 152 with rpet loss weight: 0.0, PCA loss weight: 0.30000000000000004, PCA range: 5, data range: 1100.0 to 1300.0 failed due to error: 'NoneType' object is not subscriptable
+Test 2812 with rpet loss weight: 0.0, PCA loss weight: 0.30000000000000004, PCA range: 5, data range: 1100.0 to 1300.0 failed due to error: 2812
+Test 2455 with rpet loss weight: 0.0, PCA loss weight: 0.30000000000000004, PCA range: 5, data range: 1100.0 to 1300.0 failed due to error: 2455
+Test 2769 with rpet loss weight: 0.4, PCA loss weight: 0.5, PCA range: 3, data range: 400.0 to 1300.0 failed due to error: 2769
+Test 614 with rpet loss weight: 0.6000000000000001, PCA loss weight: 0.4, PCA range: 3, data range: 1100.0 to 1000.0 failed due to error: Found array with 0 feature(s) (shape=(38, 0)) while a minimum of 1 is required by StandardScaler.
+Test 2489 with rpet loss weight: 0.6000000000000001, PCA loss weight: 0.4, PCA range: 3, data range: 1100.0 to 1000.0 failed due to error: 2489
+Test 1926 with rpet loss weight: 0.6000000000000001, PCA loss weight: 0.4, PCA range: 3, data range: 1100.0 to 1000.0 failed due to error: 1926
+Test 2933 with rpet loss weight: 0.6000000000000001, PCA loss weight: 0.4, PCA range: 3, data range: 1100.0 to 1000.0 failed due to error: 2933
+Test 2231 with rpet loss weight: 0.6000000000000001, PCA loss weight: 0.4, PCA range: 3, data range: 1100.0 to 1000.0 failed due to error: 2231
+Test 2105 with rpet loss weight: 0.4, PCA loss weight: 0.2, PCA range: 5, data range: 600.0 to 1000.0 failed due to error: 2105
+Test 2312 with rpet loss weight: 0.4, PCA loss weight: 0.2, PCA range: 5, data range: 600.0 to 1000.0 failed due to error: 2312
+Test 1903 with rpet loss weight: 0.4, PCA loss weight: 0.2, PCA range: 5, data range: 600.0 to 1000.0 failed due to error: 1903
+Test 2371 with rpet loss weight: 0.4, PCA loss weight: 0.2, PCA range: 5, data range: 600.0 to 1000.0 failed due to error: 2371
+Test 1175 with rpet loss weight: 0.7000000000000001, PCA loss weight: 0.2, PCA range: 3, data range: 1100.0 to 800.0 failed due to error: Found array with 0 feature(s) (shape=(38, 0)) while a minimum of 1 is required by StandardScaler.
+Test 676 with rpet loss weight: 0.4, PCA loss weight: 0.4, PCA range: 4, data range: 1100.0 to 1000.0 failed due to error: Found array with 0 feature(s) (shape=(38, 0)) while a minimum of 1 is required by StandardScaler.
+Test 1835 with rpet loss weight: 0.4, PCA loss weight: 0.4, PCA range: 4, data range: 1100.0 to 1000.0 failed due to error: 1835
+Test 2042 with rpet loss weight: 0.4, PCA loss weight: 0.4, PCA range: 4, data range: 1100.0 to 1000.0 failed due to error: 2042
+Test 2852 with rpet loss weight: 0.4, PCA loss weight: 0.4, PCA range: 4, data range: 1100.0 to 1000.0 failed due to error: 2852
+Test 1850 with rpet loss weight: 0.0, PCA loss weight: 0.5, PCA range: 5, data range: 600.0 to 1000.0 failed due to error: 1850
+Test 2477 with rpet loss weight: 0.2, PCA loss weight: 0.0, PCA range: 4, data range: 400.0 to 1000.0 failed due to error: 2477
+Test 1731 with rpet loss weight: 0.0, PCA loss weight: 0.0, PCA range: 5, data range: 400.0 to 1000.0 failed due to error: 1731
+Test 2509 with rpet loss weight: 0.0, PCA loss weight: 0.0, PCA range: 5, data range: 400.0 to 1000.0 failed due to error: 2509
+Test 2192 with rpet loss weight: 0.0, PCA loss weight: 0.30000000000000004, PCA range: 5, data range: 1100.0 to 1300.0 failed due to error: 2192
+Test 1778 with rpet loss weight: 0.4, PCA loss weight: 0.1, PCA range: 5, data range: 1100.0 to 1300.0 failed due to error: 1778
+Test 2886 with rpet loss weight: 0.2, PCA loss weight: 0.30000000000000004, PCA range: 4, data range: 600.0 to 1000.0 failed due to error: 2886
+Test 2950 with rpet loss weight: 0.2, PCA loss weight: 0.30000000000000004, PCA range: 4, data range: 600.0 to 1000.0 failed due to error: 2950
+Test 606 with rpet loss weight: 0.6000000000000001, PCA loss weight: 0.30000000000000004, PCA range: 3, data range: 1100.0 to 1000.0 failed due to error: Found array with 0 feature(s) (shape=(38, 0)) while a minimum of 1 is required by StandardScaler.
+Test 2938 with rpet loss weight: 0.6000000000000001, PCA loss weight: 0.30000000000000004, PCA range: 3, data range: 400.0 to 1300.0 failed due to error: 2938
+Test 2472 with rpet loss weight: 0.2, PCA loss weight: 0.1, PCA range: 5, data range: 600.0 to 800.0 failed due to error: 2472
+Test 2483 with rpet loss weight: 0.2, PCA loss weight: 0.1, PCA range: 5, data range: 600.0 to 800.0 failed due to error: 2483
+Test 1924 with rpet loss weight: 0.7000000000000001, PCA loss weight: 0.2, PCA range: 3, data range: 600.0 to 1300.0 failed due to error: 1924
+Test 1788 with rpet loss weight: 0.7000000000000001, PCA loss weight: 0.2, PCA range: 3, data range: 600.0 to 1300.0 failed due to error: 1788
+Test 2251 with rpet loss weight: 0.6000000000000001, PCA loss weight: 0.2, PCA range: 5, data range: 400.0 to 800.0 failed due to error: 2251
+Test 2081 with rpet loss weight: 0.6000000000000001, PCA loss weight: 0.2, PCA range: 5, data range: 400.0 to 800.0 failed due to error: 2081
+Test 2493 with rpet loss weight: 0.6000000000000001, PCA loss weight: 0.2, PCA range: 5, data range: 400.0 to 800.0 failed due to error: 2493
+Test 598 with rpet loss weight: 0.6000000000000001, PCA loss weight: 0.2, PCA range: 3, data range: 1100.0 to 1000.0 failed due to error: Found array with 0 feature(s) (shape=(38, 0)) while a minimum of 1 is required by StandardScaler.
+Test 592 with rpet loss weight: 0.0, PCA loss weight: 0.2, PCA range: 3, data range: 1100.0 to 1000.0 failed due to error: Found array with 0 feature(s) (shape=(38, 0)) while a minimum of 1 is required by StandardScaler.
+Test 2171 with rpet loss weight: 0.0, PCA loss weight: 0.2, PCA range: 3, data range: 1100.0 to 1000.0 failed due to error: 2171
+Test 2222 with rpet loss weight: 0.0, PCA loss weight: 0.2, PCA range: 3, data range: 1100.0 to 1000.0 failed due to error: 2222
+Test 1739 with rpet loss weight: 0.5, PCA loss weight: 0.5, PCA range: 4, data range: 600.0 to 800.0 failed due to error: 1739
+Test 2344 with rpet loss weight: 0.2, PCA loss weight: 0.30000000000000004, PCA range: 4, data range: 600.0 to 800.0 failed due to error: 2344
+Test 1826 with rpet loss weight: 0.2, PCA loss weight: 0.30000000000000004, PCA range: 4, data range: 600.0 to 800.0 failed due to error: 1826
+Test 2246 with rpet loss weight: 0.30000000000000004, PCA loss weight: 0.6000000000000001, PCA range: 3, data range: 400.0 to 1000.0 failed due to error: 2246
+Test 2883 with rpet loss weight: 0.6000000000000001, PCA loss weight: 0.6000000000000001, PCA range: 5, data range: 600.0 to 1300.0 failed due to error: 2883
+Test 1819 with rpet loss weight: 0.30000000000000004, PCA loss weight: 0.0, PCA range: 3, data range: 400.0 to 1000.0 failed due to error: 1819
+Test 985 with rpet loss weight: 0.1, PCA loss weight: 0.30000000000000004, PCA range: 3, data range: 1100.0 to 1800.0 failed due to error: invalid mode: 'W'
+Test 2833 with rpet loss weight: 0.1, PCA loss weight: 0.2, PCA range: 5, data range: 1200.0 to 1300.0 failed due to error: invalid mode: 'W'
+Test 2414 with rpet loss weight: 0.6000000000000001, PCA loss weight: 0.5, PCA range: 4, data range: 400.0 to 1300.0 failed due to error: invalid mode: 'W'
+Test 2203 with rpet loss weight: 0.30000000000000004, PCA loss weight: 0.30000000000000004, PCA range: 4, data range: 600.0 to 1300.0 failed due to error: invalid mode: 'W'
+Test 2999 with rpet loss weight: 0.7000000000000001, PCA loss weight: 0.6000000000000001, PCA range: 4, data range: 1100.0 to 1000.0 failed due to error: Found array with 0 feature(s) (shape=(38, 0)) while a minimum of 1 is required by StandardScaler.
+Test 2886 with rpet loss weight: 0.6000000000000001, PCA loss weight: 0.0, PCA range: 3, data range: 1100.0 to 1000.0 failed due to error: If mode is 'interp', window_length must be less than or equal to the size of x.
+Test 2764 with rpet loss weight: 0.4, PCA loss weight: 0.1, PCA range: 4, data range: 1200.0 to 1300.0 failed due to error: If mode is 'interp', window_length must be less than or equal to the size of x.
+Test 2802 with rpet loss weight: 0.2, PCA loss weight: 0.6000000000000001, PCA range: 4, data range: 1200.0 to 1300.0 failed due to error: If mode is 'interp', window_length must be less than or equal to the size of x.
+Test 2708 with rpet loss weight: 0.4, PCA loss weight: 0.2, PCA range: 3, data range: 1200.0 to 1300.0 failed due to error: If mode is 'interp', window_length must be less than or equal to the size of x.
+Test 2764 with rpet loss weight: 0.4, PCA loss weight: 0.1, PCA range: 4, data range: 1200.0 to 1300.0 failed due to error: If mode is 'interp', window_length must be less than or equal to the size of x.

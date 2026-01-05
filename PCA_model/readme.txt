@@ -39,3 +39,19 @@ In order to do so ill need to:
 -pull rpet% out of each sample (done with classification)
 -concat each feature vector with the rPET%
 -feed into the regressor????
+
+
+
+components for a new model:
+
+-model itself
+    -layers
+-model training master
+    -fit    
+    -compile
+-data processor
+-training caller
+
+
+
+inverse FE 

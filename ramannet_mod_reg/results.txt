@@ -54,4 +54,32 @@ early stopping kicks in around epoch 20
 
 
 
-going to try with a GAN
+after using rPET% as a helper head:
+
+
+{'MAE': 11.435910000488283, 'MSE': 136.16325672570397, 'RMSE': np.float64(11.66890126471657), 'R2': -70.30941590582322, 'MAPE': np.float64(11.947250504937726), 'Std_Residual': np.float64(2.3201765420838227), 'Prediction_Interval_95': np.float64(4.547546022484292), 'Predictions': array([88.30171 , 88.143295, 82.02781 , 79.780594, 84.1409  ],
+      dtype=float32), 'Residuals': array([ 8.28121796,  8.97237471, 13.51925086, 13.59513613, 12.81157034])}
+
+
+after a couple more repeats with the rpet% included in the model
+its clear this is not an improvement
+
+
+cutting range to 1100-1500 based on paper jordan sent:
+
+{'MAE': 20.82617794482422, 'MSE': 434.98849251151296, 'RMSE': np.float64(20.856377741868624), 'R2': -226.8057684037094, 'MAPE': np.float64(21.731077245217783), 'Std_Residual': np.float64(1.121964670580194), 'Prediction_Interval_95': np.float64(2.19905075433718), 'Predictions': array([77.29047 , 76.06974 , 74.025215, 70.97187 , 77.08568 ],
+      dtype=float32), 'Residuals': array([19.29246369, 21.0459297 , 21.52184485, 22.40385958, 19.8667919 ])}
+
+
+with same cut and savgol  filter applied :
+savgol filter settings: X = savgol_filter(X, 100, 20,axis = 1, mode = 'interp')
+
+{'MAE': 14.735082974121095, 'MSE': 218.04458474683616, 'RMSE': np.float64(14.766332813086537), 'R2': -113.1910993730623, 'MAPE': np.float64(15.366810688796456), 'Std_Residual': np.float64(0.9601637842590997), 'Prediction_Interval_95': np.float64(1.8819210171478353), 'Predictions': array([81.51352 , 81.265495, 82.34118 , 77.92521 , 82.85304 ],
+      dtype=float32), 'Residuals': array([15.06941071, 15.8501747 , 13.20588111, 15.45052095, 14.0994274 ])}
+
+after tweaking savgol filter: 
+
+train filter: X = savgol_filter(X, 200, 40,axis = 1, mode = 'interp')
+test filter: X = savgol_filter(X, 50, 25,axis = 1, mode = 'interp')
+
+{'MAE': 2.2248776464843756, 'MSE': 7.1327766146371845, 'RMSE': np.float64(2.6707258591321543), 'R2': -2.7354727435839616, 'MAPE': np.float64(2.3324594480546255), 'Std_Residual': np.float64(2.662852840831992), 'Prediction_Interval_95': np.float64(5.219191568030705), 'Predictions': array([98.08943, 97.53251, 94.29447, 97.52688, 93.15516], dtype=float32), 'Residuals': array([-1.50650176, -0.41683885,  1.25258826, -4.15114836,  3.797311  ])}

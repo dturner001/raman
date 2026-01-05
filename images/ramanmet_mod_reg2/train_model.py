@@ -2,8 +2,8 @@
 train the RamanNet regression model
 """
 
-from data_processing_reg import segment_spectrum_batch
-from RamanNet_model_reg import RamanNetRegression  # Our modified model
+from data_processing import segment_spectrum_batch
+from model import RamanNetRegression  # Our modified model
 import numpy as np 
 import matplotlib.pyplot as plt
 import tensorflow as tf
@@ -11,9 +11,7 @@ from keras.callbacks import ModelCheckpoint, ReduceLROnPlateau, EarlyStopping
 from sklearn.preprocessing import StandardScaler
 import keras
 import joblib
-
-
-def train_regression_model(X_train, y_train, rpet_train, PCA_train, X_val, y_val, rpet_val, PCA_val, w_len, dw, epochs, model_path, rpet_loss, PCA_loss, plot=True):
+def train_regression_model(X_train, y_train, X_val, y_val, w_len, dw, epochs, model_path, plot=True):
     """
     Train RamanNet for regression (temperature prediction)
     
@@ -42,21 +40,14 @@ def train_regression_model(X_train, y_train, rpet_train, PCA_train, X_val, y_val
     y_train_scaled = temp_scaler.fit_transform(y_train.reshape(-1, 1)).flatten()
     y_val_scaled = temp_scaler.transform(y_val.reshape(-1, 1)).flatten()
 
-    rpet_scaler = StandardScaler()
-    y_rpet_train_scaled = rpet_scaler.fit_transform(rpet_train.reshape(-1, 1))
-    y_rpet_val_scaled   = rpet_scaler.transform(rpet_val.reshape(-1, 1))
-
-    # PCA_scaler = StandardScaler()
-    # PCA_train_scaled = PCA_scaler.fit_transform(PCA_train)
-    # PCA_val_scaled   = PCA_scaler.transform(PCA_val)
 
     
     # Save scaler for later use
     scaler_path = model_path.replace('.h5', '_scaler.joblib').replace('.keras', '_scaler.joblib')
     joblib.dump(temp_scaler, scaler_path)
-    joblib.dump(rpet_scaler, model_path.replace('.keras', '_rpet_scaler.joblib').replace('.h5', '_rpet_scaler.joblib'))
+
     joblib.dump(spectra_scaler, model_path.replace('.keras', '_spectra_scaler.joblib').replace('.h5', '_spectra_scaler.joblib'))
-    # joblib.dump(PCA_scaler, model_path.replace('.keras', '_PCA_scaler.joblib').replace('.h5', '_PCA_scaler.joblib'))
+
     # 2. Segment spectra into windows
     print("Segmenting spectra...")
     X_train_segmented = segment_spectrum_batch(X_train_scaled, w_len, dw)
@@ -66,6 +57,7 @@ def train_regression_model(X_train, y_train, rpet_train, PCA_train, X_val, y_val
     print("Creating regression model...")
     mdl = RamanNetRegression(w_len=X_train_segmented[0].shape[1], 
                             n_windows=len(X_train_segmented))
+    
     
     # 4. Define custom metrics for regression
 
@@ -94,18 +86,15 @@ def train_regression_model(X_train, y_train, rpet_train, PCA_train, X_val, y_val
     optimizer=tf.keras.optimizers.Adam(learning_rate=1e-4),
     loss={
         'temperature': tf.keras.losses.Huber(delta=1.0),
-        'rpet': 'mse',
-        # "PCA": 'mse'
+
     },
     loss_weights={
         'temperature': 1.0,
-        'rpet': rpet_loss,
-        # "PCA": PCA_loss
+
     },
     metrics={
         'temperature': ['mae', 'mse'],
-        'rpet': ['mae'],
-        # "PCA": ['mae']
+
     }
     )
     
@@ -141,20 +130,12 @@ def train_regression_model(X_train, y_train, rpet_train, PCA_train, X_val, y_val
     
     training_history = mdl.fit(
     x=X_train_segmented,
-    y={
-        'temperature': y_train_scaled,
-        'rpet': y_rpet_train_scaled,
-        # "PCA": PCA_train_scaled
-    },
+    y=  y_train_scaled,
     batch_size=64,
     epochs=epochs,
     validation_data=(
         X_val_segmented,
-        {
-            'temperature': y_val_scaled,
-            'rpet': y_rpet_val_scaled,
-            # "PCA": PCA_val_scaled
-        }
+        y_val_scaled,
     ),
     callbacks=[checkpoint, reduce_lr, early_stop],
     verbose=1
@@ -172,22 +153,12 @@ def plot_training_history(history, temp_scaler):
     hist = history.history
     print("Available history keys:", hist.keys())
     # Extract series (use .get to avoid KeyErrors)
-    reg_loss      = hist.get('temperature_loss', [])
-    val_reg_loss  = hist.get('val_temperature_loss', [])
-    reg_mae       = hist.get('temperature_mae', [])
-    val_reg_mae   = hist.get('val_temperature_mae', [])
-    reg_r2        = hist.get('temperature_r2_score', [])
-    val_reg_r2    = hist.get('val_temperature_r2_score', [])
-
-    rpet_loss     = hist.get('rpet_loss', [])
-    val_rpet_loss = hist.get('val_rpet_loss', [])
-    rpet_mae      = hist.get('rpet_mae', [])
-    val_rpet_mae  = hist.get('val_rpet_mae', [])
-
-    # PCA_loss     = hist.get('PCA_loss', [])
-    # val_PCA_loss = hist.get('val_PCA_loss', [])
-    # PCA_mae      = hist.get('PCA_mae', [])
-    # val_PCA_mae  = hist.get('val_PCA_mae', [])
+    reg_loss      = hist.get('loss', [])
+    val_reg_loss  = hist.get('val_loss', [])
+    reg_mae       = hist.get('mae', [])
+    val_reg_mae   = hist.get('val_mae', [])
+    reg_r2        = hist.get('r2_score', [])
+    val_reg_r2    = hist.get('val_r2_score', [])
 
 
     lrs           = hist.get('lr', [])
@@ -216,15 +187,6 @@ def plot_training_history(history, temp_scaler):
     else:
         axes[0, 2].axis('off')
 
-    # rPET loss
-    axes[1, 0].plot(rpet_loss, 'b-', label='Train rPET loss')
-    axes[1, 0].plot(val_rpet_loss, 'r-', label='Val rPET loss')
-    axes[1, 0].set_title('rPET loss'); axes[1, 0].legend(); axes[1, 0].grid(True, alpha=0.3)
-
-    # rPET MAE
-    axes[1, 1].plot(rpet_mae, 'b-', label='Train rPET MAE')
-    axes[1, 1].plot(val_rpet_mae, 'r-', label='Val rPET MAE')
-    axes[1, 1].set_title('rPET MAE'); axes[1, 1].legend(); axes[1, 1].grid(True, alpha=0.3)
 
     # Learning rate
     if len(lrs):

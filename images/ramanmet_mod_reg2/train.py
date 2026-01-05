@@ -3,16 +3,11 @@ import numpy as np
 from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
 from keras.utils import to_categorical
-import train_model_reg as tm
+import train_model as tm
 from scipy.signal import savgol_filter
 import matplotlib.pyplot as plt
 
-def train_reg(PCA_val, data_upper , data_lower, rpetloss, pcaloss):
-    
-    if PCA_val ==3:
-            PCA_train_path = f"PCA_model/PCA_training.csv"
-    else:
-        PCA_train_path = f"PCA_model/PCA_training{PCA_val}.csv"
+def train_reg(data_upper , data_lower):
     if data_upper == 0:
         data_upper = 3100
         
@@ -26,21 +21,7 @@ def train_reg(PCA_val, data_upper , data_lower, rpetloss, pcaloss):
     #renaming columns to just rpet percentage
     train_in = train_in.rename(columns = lambda x: x.split()[0].split("_")[1])
 
-    PCA_train = pd.read_csv(PCA_train_path)
-    PCA_train = PCA_train.drop(PCA_train.columns[PCA_val], axis=1)
-    PCA_train = PCA_train.values
-    print(PCA_train.shape)
-    #print(PCA_train.columns)
-    # PCA_train = savgol_filter(PCA_train, 10, 1,axis = 1, mode = 'interp')
-
-
-
-    rpet_inp = np.array(train_in.columns,dtype = 'float')
-
     train_out = pd.read_csv("Training_outputs.csv")
-
-
-
 
     temps = np.array(train_out.columns, dtype='float')
 
@@ -48,21 +29,21 @@ def train_reg(PCA_val, data_upper , data_lower, rpetloss, pcaloss):
     X = savgol_filter(X, 200, 40,axis = 1, mode = 'interp')
     # plt.plot(wave, X[0,:])
     # plt.show()
-    X_train, X_Val, Y_train, Y_val,rpet_train, rpet_val, PCA_train, PCA_val = train_test_split(
-        X, temps,rpet_inp, PCA_train, test_size = 0.2, random_state= 31, shuffle = True
+    X_train, X_Val, Y_train, Y_val = train_test_split(
+        X, temps,  test_size = 0.2, random_state= 31, shuffle = True
     )
 
 
 
-    print(len(rpet_train))
+
     print(X_Val)
 
     print(f"X_train shape: {X_train.shape}")
     print(f"number of temps: {len(temps)}")
     path = r"C:\Users\Daniel Turmer\Documents\placement_stuff\raman\regression model\saved_modelreg.keras"
-    mdl, training_history = tm.train_regression_model(X_train, Y_train, rpet_train, PCA_train, X_Val, Y_val,rpet_val,  PCA_val, 50, 25, 75, path, rpet_loss = rpetloss, PCA_loss = pcaloss, plot = True)
+    mdl, training_history = tm.train_regression_model(X_train, Y_train,X_Val, Y_val, 50, 25, 75, path, plot = True)
     #print(mdl.summary())
 
 
 if __name__ == "__main__":
-    train_reg(3, 1500, 1100, 0.1, 0.1)
+    train_reg(1500, 1100)

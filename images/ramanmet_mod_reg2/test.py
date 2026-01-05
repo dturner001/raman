@@ -1,4 +1,4 @@
-from train_model_reg import evaluate_regression_model
+from train_model import evaluate_regression_model
 
 import pandas as pd
 import numpy as np
@@ -9,9 +9,9 @@ import joblib
 from keras.models import load_model
 from scipy.signal import savgol_filter
 
-def test(PCA_val : int, data_upper , data_lower):
+def test(data_upper , data_lower):
     model_path = r"regression model\saved_modelreg.keras"
-    #PCA_path = f"PCA_model/PCA_testing{PCA_val}.csv"
+
     mdl = load_model(model_path)
 
     test_in = pd.read_csv("Testing_inputs.csv")
@@ -31,4 +31,4 @@ def test(PCA_val : int, data_upper , data_lower):
     return metrics
 
 if __name__ == "__main__":
-    test(3, 1500, 1100)
+    test(1500, 1100)

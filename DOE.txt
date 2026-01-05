@@ -1,0 +1,4 @@
+Test 428 with rpet loss weight: 0.4, PCA loss weight: 0.5, PCA range: 3, data range: 400.0 to 1300.0, MAE: 2.749639858886721
+Test 1681 with rpet loss weight: 0.1, PCA loss weight: 0.2, PCA range: 5, data range: 400.0 to 800.0, MAE: 4.511804165527346
+Test 916 with rpet loss weight: 0.4, PCA loss weight: 0.2, PCA range: 5, data range: 600.0 to 1000.0, MAE: 5.925622524902346
+test

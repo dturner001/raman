@@ -39,6 +39,9 @@ def RamanNetRegression(w_len, n_windows):
 
     top = Dense(512)(comb)
     top = BatchNormalization()(top)
+    top = Dense(512)(comb)
+
+    top = BatchNormalization()(top)
     top = LeakyReLU()(top)
     top = Dropout(0.40)(top)
 
@@ -51,14 +54,15 @@ def RamanNetRegression(w_len, n_windows):
     top = LeakyReLU()(top)
     top = Dropout(0.25)(top)
 
-    rpet_output = Dense(1, activation='linear', name='rpet')(top)
+    
+    #rpet_output = Dense(1, activation='linear', name='rpet')(top)
     temp_output = Dense(1, activation='linear', name='temperature')(top)
-    # PCA_output = Dense(1, activation='linear', name='PCA')(top)
+    #PCA_output = Dense(1, activation='linear', name='PCA')(top)
 
     mdl = Model(inputs=inps, outputs={
         "temperature": temp_output,
-        "rpet": rpet_output,
-        # "PCA": PCA_output
+        # "rpet": rpet_output
+        #"PCA": PCA_output
     })  
 
     return mdl
